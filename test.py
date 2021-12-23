@@ -17,7 +17,7 @@ ax.axes.get_xaxis().set_visible(False)
 line, = ax.plot([], [], lw=2)
 plotcols=["red","blue","green"]
 lines=[]
-plt.ylabel("kr")
+plt.ylabel("danske kroner")
 for index in range(3):
     lobj = ax.plot([],[],lw=2,color=plotcols[index])[0]
     lines.append(lobj)
@@ -80,8 +80,10 @@ anim = animation.FuncAnimation(fig, animate,frames=data.shape[1], interval=150, 
 
 
 # save the animation as mp4 video file
+mywriter = animation.FFMpegWriter()
+anim.save('test.mp4', writer=mywriter)
 #anim.save('test.gif', writer='imagemagick')
-anim.save('test.gif', dpi=200, writer=PillowWriter(fps=10))
+#anim.save('test.gif', dpi=200, writer=PillowWriter(fps=10))
 
 
 plt.show()
