@@ -35,12 +35,12 @@ plt.ylabel("danske kroner")
 plt.xlabel("år")
 
 #instanciate lines and associated legend
-plotcols=["red","blue","green"]
+plotcols=["red","blue","green","yellow"]
 lines=[]
-for index in range(3):
+for index in range(4):
     lobj = ax.plot([],[],lw=2,color=plotcols[index])[0]
     lines.append(lobj)
-ax.legend(handles=lines, labels=["København","Odense","Århus"],loc="upper left")
+ax.legend(handles=lines, labels=["København","Odense","Århus","Greve"],loc="upper left")
 
 def init():
     for line in lines:
@@ -49,7 +49,7 @@ def init():
 
 
 # lists to store x and y axis points
-x1, y1, y2, y3 = [], [], [], []
+x1, y1, y2, y3, y4 = [], [], [], [], []
 
 #read and clean data
 data = pd.read_csv("ejendomspriser.csv", sep=";")
@@ -73,12 +73,13 @@ def animate(i):
     y1.append(int(data.iloc[0,i]))
     y2.append(int(data.iloc[53,i]))
     y3.append(int(data.iloc[78,i]))
+    y4.append(int(data.iloc[31,i]))
 
     #for dynamic axis
     #ax.set_ylim(min(y1), max(y1)+max(y1)*0.1)  # added ax attribute here
     #ax.set_xlim(x1[0],x1[i]+2)
 
-    ylist = [y1, y2, y3]
+    ylist = [y1, y2, y3, y4]
     for lnum,line in enumerate(lines):
         line.set_data(x1, ylist[lnum]) # set data for each line separately.
 
@@ -95,7 +96,7 @@ plt.title('Gennemsnitlig kvm pris i danske kommuner')
 # call the animator
 
 
-anim = animation.FuncAnimation(fig, animate,frames=data.shape[1], interval=50, blit=True,repeat_delay=10000)
+anim = animation.FuncAnimation(fig, animate,frames=data.shape[1], interval=100, blit=True,repeat_delay=10000)
 
 # save the animation as mp4 or gif file
 mywriter = animation.FFMpegWriter()
